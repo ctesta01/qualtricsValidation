@@ -1,33 +1,12 @@
 Qualtrics.SurveyEngine.addOnload(function() {
     var qid = this.questionId;
-
     var appTotal = $(qid).select('td.c4').last().down();
- //   appTotal.setAttribute("readonly", "readonly");
- //   var Applications = $(qid).select('td.c4');
- //   for (var i=0; i < (Applications.length-1); i++){
- //       Applications[i].down().observe("keyup",function(event){
- //           sumCol(Applications, appTotal);
- //       });
- //   }
-
     var accTotal = $(qid).select('td.c5').last().down();
- //   accTotal.setAttribute("readonly", "readonly")
- //       var Accepts = $(qid).select('td.c5');
- //   for (var i=0; i < (Accepts.length-1); i++){
- //       Accepts[i].down().observe("keyup",function(event){
- //           sumCol(Accepts, accTotal);
- //       });
- //   }
-
     var enTotal = $(qid).select('td.c6').last().down();
-//    enTotal.setAttribute("readonly", "readonly")
-//        var Enrolls = $(qid).select('td.c6');
-//    for (var i=0; i < (Enrolls.length-1); i++){
-//        Enrolls[i].down().observe("keyup",function(event){
-//            sumCol(Enrolls, enTotal);
-//        });
-//    }
 
+    // sumCol(x,y)
+    // takes a set of elements (x), sums all but the last 
+    // element, and puts the result in y. 
     function sumCol(x,y) {
         var totalApp=0
             for (var i=0; i < (x.length - 1); i++) {
@@ -39,6 +18,11 @@ Qualtrics.SurveyEngine.addOnload(function() {
         y.value = totalApp;
     }
 
+    // sumValidate 
+    // why are these two functions? this is miserable.
+    // sumValidate doesn't even validate, also miserable. 
+    // sumValidate is a glorified way to call sumCol and pass
+    // it the data it needs a little more intelligably. 
     function sumValidate(columnTotal, cellSelect, cellNumber) {
         columnTotal.setAttribute("readonly", "readonly")
             for (var i=0; i < (cellNumber); i++){
@@ -50,7 +34,7 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     sumValidate(appTotal, $(qid).select('td.c4'), 2);
     sumValidate(accTotal, $(qid).select('td.c5'), 2);
-    sumValidate(
+    sumValidate(enTotal, $(qid).select('td.c6'), 2);
     
 });
 
