@@ -31,12 +31,15 @@ function validateSuccess(array) {
 }
 
 function mathEquiv(array) {
+    var validateStatus = 0;
     for (var l=1; l < array.length; l++) {
         if (array[l] != array[l-1]) {
-            validateError(array);
+           validateStatus = 1; 
         }
-        else validateSuccess(array);
     }
+    if (validateStatus == 1) {
+        validateError(array);
+    } else validateSuccess(array);
 }
 
 function equivValidate(array) {
