@@ -1,4 +1,4 @@
-function qualtricsMath(mathFunction, set, output) {
+function readonlyAndWatch(mathFunction, set, output) {
     setSize = set.length;
     output.setAttribute("readonly", "readonly");
     for (var i=0; i < setSize; i++) {
@@ -53,3 +53,6 @@ function equivValidate(array) {
 
 }
 
+function sumMatrix(array, output) {
+    readonlyAndWatch(array, output, mathSum);
+}

@@ -25,9 +25,11 @@ Hopefully I can change that with enough JavaScript (it never ends).
     // as well as setting the output cell to readonly.
 
 
-    sumMatrix($("QID1").select("td.c5").splice(-1,1), $("QID1").select("td.c5").last().down() 
+    sumMatrix($("QID1").select("td.c5").splice(-1,1), $("QID1").select("td.c5").last().down());
 
-    sumMatrix([$("QID1").select("td.c6")[0], $("QID1").select("td.c6")[1]], $("QID1").select("td.c6")[2].down())
+    sumMatrix([$("QID1").select("td.c6")[0], $("QID1").select("td.c6")[1]], $("QID1").select("td.c6")[2].down());
+
+    equivValidate([$("QID1").select("td.c4")[0], $("QID1").select("td.c4")[1]]);
     
     });
 The function include allows the user to import externally hosted JavaScript. With that done, the user can then run externally defined functions, like sumMatrix that let's users define an array to sum and an output cell. 
