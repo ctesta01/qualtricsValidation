@@ -33,3 +33,5 @@ Hopefully I can change that with enough JavaScript (it never ends).
     
     });
 The function include allows the user to import externally hosted JavaScript. With that done, the user can then run externally defined functions, like sumMatrix that let's users define an array to sum and an output cell. 
+
+![](http://gfycat.com/DeepGranularFrenchbulldog)
