@@ -4,6 +4,7 @@
 function readonlyAndWatch(mathFunction, set, output) {
     setSize = set.length;
     output.setAttribute("readonly", "readonly");
+    output.setAttribute("style", "background-color: #C0C0C0;");
     for (var i=0; i < setSize; i++) {
         set[i].down().observe("keyup", function(){
             mathFunction(set, output);
