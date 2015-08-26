@@ -33,7 +33,7 @@ function validateSuccess(array) {
 function mathEquiv(array) {
     var validateStatus = 0;
     for (var l=1; l < array.length; l++) {
-        if (array[l] != array[l-1]) {
+        if (array[l].down().value != array[l-1].down().value) {
            validateStatus = 1; 
         }
     }
