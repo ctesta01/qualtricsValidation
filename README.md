@@ -11,25 +11,22 @@ Hopefully I can change that with enough JavaScript (it never ends).
     // This function allows users to source externally hosted JavaScript and load it at runtime
     function include(filename) {
         var head = document.getElementsByTagName('head')[0];
-    
         var script = document.createElement('script');
         script.src = filename;
         script.type = 'text/javascript';
-    
         head.appendChild(script)
     }
     
-    // Here we're including my matrixSummation.js file for the sumMatrix function
     include("https://rawgit.com/ctesta01/qualtricsValidation/master/matrixSummation.js");
     
-    // sumMatrix takes its arguments in the form sumMatrix([array of cells], cell-for-output)   
-    
-    // Here is the sumMatrix function summing all but the last cell in the second column
-    // and putting the results in the last cell.
+
+    // sumMatrix takes an array of cells and a cell to put the result of summing the array into.
+    // Additionally, sumMatrix sets the output cell to update any time any of its sum-components is changed, 
+    // as well as setting the output cell to readonly.
+
+
     sumMatrix($("QID1").select("td.c5").splice(-1,1), $("QID1").select("td.c5").last().down() 
 
-    // Here is sumMatrix summing the first and second cells in the third column and 
-    // putting it in the third cell.  
     sumMatrix([$("QID1").select("td.c6")[0], $("QID1").select("td.c6")[1]], $("QID1").select("td.c6")[2].down())
     
     });
