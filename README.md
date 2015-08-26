@@ -8,7 +8,6 @@ Hopefully I can change that with enough JavaScript (it never ends).
     Qualtrics.SurveyEngine.addOnload(function()
     {
 
-    // include(filename)
     // This function allows users to source externally hosted JavaScript and load it at runtime
     function include(filename) {
         var head = document.getElementsByTagName('head')[0];
