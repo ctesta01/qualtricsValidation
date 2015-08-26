@@ -50,9 +50,8 @@ function equivValidate(array) {
             mathEquiv(array)
         });
     }
-
 }
 
 function sumMatrix(array, output) {
-    readonlyAndWatch(array, output, mathSum);
+    readonlyAndWatch(mathSum, array, output);
 }
