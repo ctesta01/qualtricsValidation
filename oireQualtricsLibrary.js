@@ -75,8 +75,8 @@ function mathLesser() {}
 function cell(string, qid) {
     r1 = /^[A-Z]/;
     r2 = /\d{1,3}/;
-    column = r1.exec(string);
-    row = r2.exec(string.replace(r1, ""));
+    var column = r1.exec(string);
+    var row = r2.exec(string.replace(r1, ""));
     if (qid === undefined) {
         qid = this.QuestionId;
     }
@@ -86,8 +86,8 @@ function cell(string, qid) {
     if (row === null) {
         alert(string.concat(": Cell misformatted. Row is not number between 1 and 3 digits"));
     }
-    qColumn = column[0].charCodeAt(0) - 61;
-    qRow = row - 1;
+    var qColumn = column[0].charCodeAt(0) - 61;
+    var qRow = row - 1;
     return ($(qid).select("td.c".concat(qColumn))[qRow]);
 }
 
