@@ -17,7 +17,7 @@ Hopefully I can change that with enough JavaScript (it never ends).
         head.appendChild(script)
     }
     
-    include("https://rawgit.com/ctesta01/qualtricsValidation/master/matrixSummation.js");
+    include("https://rawgit.com/ctesta01/qualtricsValidation/master/oireQualtricsLibrary.js");
     
 
     // sumMatrix takes an array of cells and a cell to put the result of summing the array into.
