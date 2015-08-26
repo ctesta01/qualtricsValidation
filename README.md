@@ -9,7 +9,13 @@ Go to your Qualtrics survey -> Look & Feel -> Advanced -> Paste into Header:
 
 `<script src="https://rawgit.com/ctesta01/qualtricsValidation/master/oireQualtricsLibrary.js"></script>`
 
+## Use in Survey: 
+Go to your Qualtrics survey -> Question -> Advanced Question Options (Gear under QID) -> Add Javascript...
 
+Insert here any commands you want to run specific to that question.
+
+
+## Testing with Developer Console Examples:
 ### Hiding a cell
 ![](http://giant.gfycat.com/DeepGranularFrenchbulldog.gif)
 `hideBox([$("QID1").select('td.c4')[0]]);`
