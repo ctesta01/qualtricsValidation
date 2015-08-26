@@ -35,7 +35,7 @@ function validateSuccess(array) {
     $('NextButton') && $('NextButton').show();
 }
 
-function mathEquiv(array) {
+function mathEqual(array) {
     var validateStatus = 0;
     for (var l=1; l < array.length; l++) {
         if (array[l].down().value != array[l-1].down().value) {
@@ -47,15 +47,15 @@ function mathEquiv(array) {
     } else validateSuccess(array);
 }
 
-function equivValidate(array) {
+function qualtricsEqual(array) {
     for (var m=0; m < array.length; m++) {
         array[m].down().observe("keyup", function(){
-            mathEquiv(array)
+            mathEqual(array)
         });
     }
 }
 
-function sumMatrix(array, output) {
+function qualtricsSum(array, output) {
     readonlyAndWatch(mathSum, array, output);
 }
 
@@ -64,10 +64,6 @@ function hideBox(cells) {
         cells[i].setAttribute("style", "visibility: hidden;");
     }
 }
-
-function mathGreater() {}
-
-function mathLesser() {}
 
 function cell(string, qid) {
     r1 = /^[A-Z]/;
@@ -87,5 +83,17 @@ function cell(string, qid) {
     var qRow = row - 1;
     return ($(qid).select("td.c".concat(qColumn))[qRow]);
 }
+
+qualtricsMath(string, output, qid) {
+    cellMatch = /\w{2,4}/;
+    validStringMatch = /[^A-Za-z0-9+-/*\s]{2,50}/g;
+    cells = {};
+
+    if (validStringMatch.exec(string) != null) {
+        alert(string.concat(" is a non-valid arithmetic expression"));
+    }
+
+}
+
 
 
