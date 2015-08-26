@@ -1,9 +1,12 @@
+// Add all the arithmetical operators
+// All the equivalency operators
+
 function readonlyAndWatch(mathFunction, set, output) {
     setSize = set.length;
     output.setAttribute("readonly", "readonly");
     for (var i=0; i < setSize; i++) {
         set[i].down().observe("keyup", function(){
-            mathFunction(set, output)
+            mathFunction(set, output);
         });
     }
 }
@@ -64,3 +67,8 @@ function hideBox(cells) {
         cells[i].setAttribute("style", "visibility: hidden;");
     }
 }
+
+function mathGreater() {}
+
+function mathLesser() {}
+
