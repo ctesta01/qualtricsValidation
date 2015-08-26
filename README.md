@@ -30,5 +30,6 @@ Insert here any commands you want to run specific to that question.
                $("QID1").select('td.c6')[2]], $("QID1").select('td.c6')[3].down());`
 
 ### Equivalency Validation
+![](http://giant.gfycat.com/OrangeZealousFrillneckedlizard.gif)
 `equivValidate([$("QID1").select('td.c7')[0],$("QID1").select('td.c7')[1]]);`
 

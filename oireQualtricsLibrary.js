@@ -59,9 +59,6 @@ function sumMatrix(array, output) {
     readonlyAndWatch(mathSum, array, output);
 }
 
-function dateValidate() {
-}
-
 function hideBox(cells) {
     for (var i=0; i<cells.length; i++) {
         cells[i].setAttribute("style", "visibility: hidden;");
