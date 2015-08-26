@@ -73,7 +73,7 @@ function mathGreater() {}
 function mathLesser() {}
 
 function cell(string, qid) {
-    r1 = /^[A-Za-z]/;
+    r1 = /^[A-Z]/;
     r2 = /\d{1,3}/;
     column = r1.exec(string);
     row = r2.exec(string.replace(r1, ""));
@@ -81,12 +81,12 @@ function cell(string, qid) {
         qid = this.QuestionId;
     }
     if (column === null) {
-        alert(string.concat(": Cell misformatted. Column is not single letter"));
+        alert(string.concat(": Cell misformatted. Column is not single uppercase letter"));
     }
     if (row === null) {
         alert(string.concat(": Cell misformatted. Row is not number between 1 and 3 digits"));
     }
-    qColumn = column[0].charCodeAt(0) - 93;
+    qColumn = column[0].charCodeAt(0) - 61;
     qRow = row;
     return ($(qid).select("td.c".concat(qColumn))[qRow]);
 }
