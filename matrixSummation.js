@@ -16,7 +16,7 @@ function sumMatrix(selectionSet, outputCell) {
     // This is the manipulation of the frontend of the matrix.
     // This makes it such that where the sum goes is readonly
     // And ensures that when people do stuff, the matrix updates.
-    setSize = selectionSet.length - 1;
+    setSize = selectionSet.length;
     outputCell.setAttribute("readonly", "readonly");
     for (var i=0; i < setSize; i++) {
        selectionSet[i].down().observe("keyup", function(){
