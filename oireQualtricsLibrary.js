@@ -24,11 +24,18 @@ function validateError(array) {
     }
 }
 
+function validateSuccess(array) {
+    for (var k=0; k < array.length; k++) {
+        array[k].down().setAttribute("style", "background-color: white;");
+    }
+}
+
 function mathEquiv(array) {
     for (var l=1; l < array.length; l++) {
         if (array[l] != array[l-1]) {
             validateError(array);
         }
+        else validateSuccess(array);
     }
 }
 
