@@ -48,6 +48,5 @@ The function include allows the user to import externally hosted JavaScript. Wit
                $("QID1").select('td.c6')[2]], $("QID1").select('td.c6')[3].down());`
 
 ### Equivalency Validation
-![](http://giant.gfycat.com/OrangeZealousFrillneckedlizard.gif)
 `equivValidate([$("QID1").select('td.c7')[0],$("QID1").select('td.c7')[1]]);`
 
