@@ -22,12 +22,14 @@ function validateError(array) {
     for (var k=0; k < array.length; k++) {
         array[k].down().setAttribute("style", "background-color: pink;");
     }
+    $('NextButton') && $('NextButton').hide();
 }
 
 function validateSuccess(array) {
     for (var k=0; k < array.length; k++) {
         array[k].down().setAttribute("style", "background-color: white;");
     }
+    $('NextButton') && $('NextButton').show();
 }
 
 function mathEquiv(array) {
