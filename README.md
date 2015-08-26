@@ -6,6 +6,7 @@ Hopefully I can change that with enough JavaScript (it never ends).
 
 ## Installing: 
 Go to your Qualtrics survey -> Look & Feel -> Advanced -> Paste into Header:
+
 `<script src="https://rawgit.com/ctesta01/qualtricsValidation/master/oireQualtricsLibrary.js"></script>`
 
 
