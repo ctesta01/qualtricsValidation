@@ -72,7 +72,7 @@ function mathGreater() {}
 
 function mathLesser() {}
 
-function cell(string) {
+function cell(string, qid=this.QuestionId) {
     r1 = /^[A-Za-z]/;
     r2 = /\d{1,3}/;
     column = r1.exec(string);
@@ -85,7 +85,7 @@ function cell(string) {
     }
     qColumn = column[0].charCodeAt(0) - 93;
     qRow = row;
-    return ($(this.QuestionId).select("td.c".concat(qColumn))[qRow]);
+    return ($(qid).select("td.c".concat(qColumn))[qRow]);
 }
 
 
