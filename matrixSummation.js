@@ -5,7 +5,7 @@ function sumMatrix(selectionSet, outputCell) {
     // When you call sumMatrix, this is the summing part.
     function sumSet(set, output) {
         var setTotal = 0;
-        for (var j=0; j < (set.length - 2); j++) {
+        for (var j=0; j < (set.length); j++) {
             var setInputValue = parseInt(set[j].down().value);
             if (isNaN(setInputValue)) setInputValue = 0;
             setTotal = setTotal + setInputValue;
