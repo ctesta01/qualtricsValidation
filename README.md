@@ -43,11 +43,11 @@ The function include allows the user to import externally hosted JavaScript. Wit
 `sumMatrix($("QID1").select('td.c5').slice(0,-1), $("QID1").select('td.c5').last().down());`
 
 ### Summing Specific Cells
-![](http://zippy.gfycat.com/UnimportantCourageousAngora.gif)
+![](http://giant.gfycat.com/UnimportantCourageousAngora.gif)
 `sumMatrix([$("QID1").select('td.c6')[0], $("QID1").select('td.c6')[1], 
                $("QID1").select('td.c6')[2]], $("QID1").select('td.c6')[3].down());`
 
 ### Equivalency Validation
-![](http://zippy.gfycat.com/UltimateTightBullmastiff.gif)
+![](http://giant.gfycat.com/UltimateTightBullmastiff.gif)
 `equivValidate([$("QID1").select('td.c7')[0],$("QID1").select('td.c7')[1]]);`
 
