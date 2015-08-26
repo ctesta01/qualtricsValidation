@@ -87,7 +87,7 @@ function cell(string, qid) {
         alert(string.concat(": Cell misformatted. Row is not number between 1 and 3 digits"));
     }
     qColumn = column[0].charCodeAt(0) - 61;
-    qRow = row;
+    qRow = row - 1;
     return ($(qid).select("td.c".concat(qColumn))[qRow]);
 }
 
