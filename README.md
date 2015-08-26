@@ -1,4 +1,4 @@
-# OIRE Qualtrics JavaScript Validators
+# Qualtrics JavaScript Validation
 
 This is the start of a pretty large project to build better validation into Qualtrics. Right now it can't do much past summing a single value, and validating against a single other question entry. 
 
