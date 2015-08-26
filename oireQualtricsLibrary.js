@@ -72,11 +72,14 @@ function mathGreater() {}
 
 function mathLesser() {}
 
-function cell(string, qid=this.QuestionId) {
+function cell(string, qid) {
     r1 = /^[A-Za-z]/;
     r2 = /\d{1,3}/;
     column = r1.exec(string);
     row = r2.exec(string.replace(r1, ""));
+    if (qid === undefined) {
+        qid = this.QuestionId;
+    }
     if (column === null) {
         alert(string.concat(": Cell misformatted. Column is not single letter"));
     }
