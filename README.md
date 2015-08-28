@@ -29,7 +29,3 @@ Insert here any commands you want to run specific to that question.
 `sumMatrix([$("QID1").select('td.c6')[0], $("QID1").select('td.c6')[1], 
                $("QID1").select('td.c6')[2]], $("QID1").select('td.c6')[3].down());`
 
-### Equivalency Validation
-![](http://i.imgur.com/0n5wUMY.gifv)
-`equivValidate([$("QID1").select('td.c7')[0],$("QID1").select('td.c7')[1]]);`
-
