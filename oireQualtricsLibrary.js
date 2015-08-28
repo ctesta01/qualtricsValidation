@@ -6,7 +6,7 @@ function readonlyAndWatch(mathFunction, set, output) {
     output.setAttribute("readonly", "readonly");
     for (var i=0; i < setSize; i++) {
         set[i].down().observe("keyup", function(){
-            mathFunction(set, output);
+            mathFunction;
         });
     }
 }
@@ -56,7 +56,7 @@ function qualtricsEqual(array) {
 }
 
 function qualtricsSum(array, output) {
-    readonlyAndWatch(mathSum, array, output);
+    readonlyAndWatch(mathSum(array, output), array, output);
 }
 
 function hideBox(cells) {
