@@ -1,4 +1,4 @@
-# OIRE Qualtrics JavaScript Validators
+# Qualtrics JavaScript Validation
 
 This is the start of a pretty large project to build better validation into Qualtrics. Right now it can't do much past summing a single value, and validating against a single other question entry. 
 
@@ -30,6 +30,6 @@ Insert here any commands you want to run specific to that question.
                $("QID1").select('td.c6')[2]], $("QID1").select('td.c6')[3].down());`
 
 ### Equivalency Validation
-![](http://giant.gfycat.com/OrangeZealousFrillneckedlizard.gif)
+![](http://i.imgur.com/0n5wUMY.gifv)
 `equivValidate([$("QID1").select('td.c7')[0],$("QID1").select('td.c7')[1]]);`
 
