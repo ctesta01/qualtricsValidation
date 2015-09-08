@@ -17,28 +17,28 @@ function setReadOnly(readOnlyCell) {
 
 // mathSum() takes a set, sums its components together, and then puts 
 // them into an output cell
-    function mathSum(set, output) {
-        var setTotal = 0;
-        for (var j=0; j < (set.length); j++) {
-            var setInputValue = parseInt(set[j].down().value, 10);
-            if (isNaN(setInputValue)) { setInputValue = 0; }
-            setTotal = setTotal + setInputValue;
-        }
-        output.value = setTotal;
+function mathSum(set, output) {
+    var setTotal = 0;
+    for (var j=0; j < (set.length); j++) {
+        var setInputValue = parseInt(set[j].down().value, 10);
+        if (isNaN(setInputValue)) { setInputValue = 0; }
+        setTotal = setTotal + setInputValue;
     }
+    output.value = setTotal;
+}
 
 // validateError() takes an array, sets those cells to that color, and
 // hides the next button.
-    function validateError(array, color) {
-        if (color === undefined) {
-            color = "pink";
-        }
-        color = color.concat(";");
-        for (var k=0; k < array.length; k++) {
-            array[k].down().setAttribute("style", "background-color: ".concat(color));
-        }
-        $('NextButton') && $('NextButton').hide();
+function validateError(array, color) {
+    if (color === undefined) {
+        color = "pink";
     }
+    color = color.concat(";");
+    for (var k=0; k < array.length; k++) {
+        array[k].down().setAttribute("style", "background-color: ".concat(color));
+    }
+    $('NextButton') && $('NextButton').hide();
+}
 
 // validateSuccess() takes an array, sets background color, and 
 // shows the next button.
@@ -148,11 +148,13 @@ function cellRange(startCell, endCell) {
     return outputRange;
 }
 
-function qualtricsMath(string, output) {
+function qualtricsMath(origString, output) {
+    var string = origString;
     var cellMatch = /^[A-Za-z0-9\s]{2,4}/;
     var operatorMatch = /^[\+\-\/\*]/;
     var validStringMatch = /[A-Za-z0-9\+\-\/\*\s]{2,50}/g;
     var operation = [];
+    var cells = [];
 
     if (qid === undefined) {
         qid = this.questionId;
@@ -165,6 +167,7 @@ function qualtricsMath(string, output) {
     while (string != "") {
         if (cellMatch.exec(string) !== null) {
             operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
+            cells.push(cell(cellMatch.exec(string)[0].trim()))
             string = string.replace(cellMatch, "");
         }
         else if (operatorMatch.exec(string) !== null) {
@@ -174,4 +177,6 @@ function qualtricsMath(string, output) {
     }
 
     output.down().value = eval(operation.join(""));
+
+    watchSet(cells, qualtricsMath(origString, output));
 }
