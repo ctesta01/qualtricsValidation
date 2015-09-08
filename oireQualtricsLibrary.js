@@ -1,12 +1,12 @@
 // watchSet() watches a set of cells you give it for changes, and 
 // calls another function when
 // it sees something change.
-function watchSet(set, mathFunction) {
-    var setSize = set.length;
-    for (var i=0; i < setSize; i++) {
-        set[i].down().observe("keyup", mathFunction );
+    function watchSet(set, mathFunction) {
+        var setSize = set.length;
+        for (var i=0; i < setSize; i++) {
+            set[i].down().observe("keyup", mathFunction );
+        }
     }
-}
 
 // toReadonly() sets a single cell to readonly.
 // TODO update to check if array or cell, and if array set all to
@@ -17,28 +17,28 @@ function setReadOnly(readOnlyCell) {
 
 // mathSum() takes a set, sums its components together, and then puts 
 // them into an output cell
-function mathSum(set, output) {
-    var setTotal = 0;
-    for (var j=0; j < (set.length); j++) {
-        var setInputValue = parseInt(set[j].down().value, 10);
-        if (isNaN(setInputValue)) { setInputValue = 0; }
-        setTotal = setTotal + setInputValue;
+    function mathSum(set, output) {
+        var setTotal = 0;
+        for (var j=0; j < (set.length); j++) {
+            var setInputValue = parseInt(set[j].down().value, 10);
+            if (isNaN(setInputValue)) { setInputValue = 0; }
+            setTotal = setTotal + setInputValue;
+        }
+        output.value = setTotal;
     }
-    output.value = setTotal;
-}
 
 // validateError() takes an array, sets those cells to that color, and
 // hides the next button.
-function validateError(array, color) {
-    if (color === undefined) {
-        color = "pink";
+    function validateError(array, color) {
+        if (color === undefined) {
+            color = "pink";
+        }
+        color = color.concat(";");
+        for (var k=0; k < array.length; k++) {
+            array[k].down().setAttribute("style", "background-color: ".concat(color));
+        }
+        $('NextButton') && $('NextButton').hide();
     }
-    color = color.concat(";");
-    for (var k=0; k < array.length; k++) {
-        array[k].down().setAttribute("style", "background-color: ".concat(color));
-    }
-    $('NextButton') && $('NextButton').hide();
-}
 
 // validateSuccess() takes an array, sets background color, and 
 // shows the next button.
@@ -110,31 +110,43 @@ function isCell(cell) {
     else { return true; }
 }
 
-function isCellArray() {}
-
-function cellRange(startCell, endCell) {
-    var r1 = /^[A-Z]/;
-    var r2 = /[0-9]{1,3}$/;
-
-    var startCellColumn = r1.exec(startCell)[0].charCodeAt(0) - 61;
-    var endCellColumn = r1.exec(endCell)[0].charCodeAt(0) - 61;
-    var startCellRow = parseInt(r2.exec(startCell)[0], 10);
-    var endCellRow = parseInt(r2.exec(endCell)[0], 10);
-
-    var tempRange = [];
-    for (var colADJ=startCellColumn; colADJ<=endCellColumn; colADJ++) {
-        for (var rowADJ=startCellRow; rowADJ<=endCellRow; rowADJ++) {
-            tempRange.push(colADJ);
-            tempRange.push(rowADJ);
+function isCellArray(array) {
+    var re = /<td*td>/;
+    var arrayStatus = true;
+    if (array.constructor !== Array) {
+        arrayStatus = false;
+    }
+    for (var i=0; i<array.length; i++) {
+        if (re.exec(array[i]) === null) {
+            arrayStatus = false;
         }
     }
-
-    var outputRange = [];
-    for (var orJKL=0; orJKL < tempRange.length; orJKL+=2) {
-        outputRange.push(cell(String.fromCharCode(tempRange[orJKL]+61).concat(tempRange[orJKL+1])));
-    }
-    return outputRange;
+    return arrayStatus;
 }
+
+    function cellRange(startCell, endCell) {
+        var r1 = /^[A-Z]/;
+        var r2 = /[0-9]{1,3}$/;
+
+        var startCellColumn = r1.exec(startCell)[0].charCodeAt(0) - 61;
+        var endCellColumn = r1.exec(endCell)[0].charCodeAt(0) - 61;
+        var startCellRow = parseInt(r2.exec(startCell)[0], 10);
+        var endCellRow = parseInt(r2.exec(endCell)[0], 10);
+
+        var tempRange = [];
+        for (var q=startCellColumn; q<=endCellColumn; q++) {
+            for (var r=startCellRow; r<=endCellRow; r++) {
+                tempRange.push(q);
+                tempRange.push(r);
+            }
+        }
+
+        var outputRange = [];
+        for (var orJKL=0; orJKL < tempRange.length; orJKL+=2) {
+            outputRange.push(cell(String.fromCharCode(tempRange[orJKL]+61).concat(tempRange[orJKL+1])));
+        }
+        return outputRange;
+    }
 
 function qualtricsMath(string, output) {
     var cellMatch = /\w{2,4}/;
