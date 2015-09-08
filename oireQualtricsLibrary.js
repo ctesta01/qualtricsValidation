@@ -60,7 +60,7 @@ function mathEqual(array) {
     var validateStatus = 0;
     for (var l=1; l < array.length; l++) {
         if (array[l].down().value != array[l-1].down().value) {
-           validateStatus = 1;
+            validateStatus = 1;
         }
     }
     if (validateStatus == 1) {
@@ -164,11 +164,11 @@ function qualtricsMath(origString, output) {
         alert(string.concat(" is a non-valid arithmetic expression"));
     }
 
-    while (string != "") {
+    while (string !== "") {
         if (cellMatch.exec(string) !== null) {
             operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
-            cells.push(cell(cellMatch.exec(string)[0].trim()))
-            string = string.replace(cellMatch, "");
+            cells.push(cell(cellMatch.exec(string)[0].trim()));
+                string = string.replace(cellMatch, "");
         }
         else if (operatorMatch.exec(string) !== null) {
             operation.push(operatorMatch.exec(string)[0]);
