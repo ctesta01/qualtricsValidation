@@ -1,12 +1,12 @@
 // watchSet() watches a set of cells you give it for changes, and 
 // calls another function when
 // it sees something change.
-    function watchSet(set, mathFunction) {
-        var setSize = set.length;
-        for (var i=0; i < setSize; i++) {
-            set[i].down().observe("keyup", mathFunction );
-        }
+function watchSet(set, mathFunction) {
+    var setSize = set.length;
+    for (var i=0; i < setSize; i++) {
+        set[i].down().observe("keyup", mathFunction );
     }
+}
 
 // toReadonly() sets a single cell to readonly.
 // TODO update to check if array or cell, and if array set all to
@@ -124,41 +124,54 @@ function isCellArray(array) {
     return arrayStatus;
 }
 
-    function cellRange(startCell, endCell) {
-        var r1 = /^[A-Z]/;
-        var r2 = /[0-9]{1,3}$/;
+function cellRange(startCell, endCell) {
+    var r1 = /^[A-Z]/;
+    var r2 = /[0-9]{1,3}$/;
 
-        var startCellColumn = r1.exec(startCell)[0].charCodeAt(0) - 61;
-        var endCellColumn = r1.exec(endCell)[0].charCodeAt(0) - 61;
-        var startCellRow = parseInt(r2.exec(startCell)[0], 10);
-        var endCellRow = parseInt(r2.exec(endCell)[0], 10);
+    var startCellColumn = r1.exec(startCell)[0].charCodeAt(0) - 61;
+    var endCellColumn = r1.exec(endCell)[0].charCodeAt(0) - 61;
+    var startCellRow = parseInt(r2.exec(startCell)[0], 10);
+    var endCellRow = parseInt(r2.exec(endCell)[0], 10);
 
-        var tempRange = [];
-        for (var q=startCellColumn; q<=endCellColumn; q++) {
-            for (var r=startCellRow; r<=endCellRow; r++) {
-                tempRange.push(q);
-                tempRange.push(r);
-            }
+    var tempRange = [];
+    for (var q=startCellColumn; q<=endCellColumn; q++) {
+        for (var r=startCellRow; r<=endCellRow; r++) {
+            tempRange.push(q);
+            tempRange.push(r);
         }
-
-        var outputRange = [];
-        for (var orJKL=0; orJKL < tempRange.length; orJKL+=2) {
-            outputRange.push(cell(String.fromCharCode(tempRange[orJKL]+61).concat(tempRange[orJKL+1])));
-        }
-        return outputRange;
     }
 
+    var outputRange = [];
+    for (var orJKL=0; orJKL < tempRange.length; orJKL+=2) {
+        outputRange.push(cell(String.fromCharCode(tempRange[orJKL]+61).concat(tempRange[orJKL+1])));
+    }
+    return outputRange;
+}
+
 function qualtricsMath(string, output) {
-    var cellMatch = /\w{2,4}/;
-    var validStringMatch = /[^A-Za-z0-9\+\-\/\*\s]{2,50}/g;
-    var cells = {};
+    var cellMatch = /^[A-Za-z0-9\s]{2,4}/;
+    var operatorMatch = /^[\+\-\/\*]/;
+    var validStringMatch = /[A-Za-z0-9\+\-\/\*\s]{2,50}/g;
+    var operation = [];
 
     if (qid === undefined) {
         qid = this.questionId;
     }
 
-    if (validStringMatch.exec(string) !== null) {
+    if (validStringMatch.exec(string) === null) {
         alert(string.concat(" is a non-valid arithmetic expression"));
     }
 
+    while (string != "") {
+        if (cellMatch.exec(string) !== null) {
+            operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
+            string = string.replace(cellMatch, "");
+        }
+        else if (operatorMatch.exec(string) !== null) {
+            operation.push(operatorMatch.exec(string)[0]);
+            string = string.replace(operatorMatch, "");
+        }
+    }
+
+    output.down().value = eval(operation.join(""));
 }
