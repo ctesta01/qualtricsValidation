@@ -109,21 +109,18 @@ function cell(string) {
 }
 
 function isCell(cell) {
-    var re = /<td*td>/;
-    if (re.exec(cell) === null) {
-        return false;
-    }
-    else { return true; }
+    var re = /<td[^>]*>((?:.|\r?\n)*?)<\/td>/g;
+    return re.test(cell.outerHTML);
 }
 
 function isCellArray(array) {
-    var re = /<td*td>/;
+    var re = /<td[^>]*>((?:.|\r?\n)*?)<\/td>/;
     var arrayStatus = true;
     if (array.constructor !== Array) {
         arrayStatus = false;
     }
     for (var i=0; i<array.length; i++) {
-        if (re.exec(array[i]) === null) {
+        if (re.test(array[i].outerHTML) == false) {
             arrayStatus = false;
         }
     }
@@ -157,17 +154,16 @@ function cellRange(startCell, endCell) {
 function mathCalc(origString, output) {
     var string = origString;
     var cellMatch = /^[A-Za-z0-9\s]{2,4}/;
-    var operatorMatch = /^[\+\-\/\*]/;
+    var operatorMatch = /^[\+\-\/\*()\s]/;
     var validStringMatch = /[A-Za-z0-9\+\-\/\*\s]{2,50}/g;
     var operation = [];
     var cells = [];
 
     // alert if the input arithmetic operation isn't valid input
-    if (validStringMatch.exec(string) === null) {
+    if (validStringMatch.test(string) == false) {
         alert(string.concat(" is a non-valid arithmetic expression"));
     }
 
-    // new code
     function regMatchCellString(str) {
         switch (true) {
           case cellMatch.test(str):
@@ -185,6 +181,7 @@ function mathCalc(origString, output) {
                 string = string.replace(operatorMatch, "");
             break;
           default:
+                console.log(string);
                 console.log("String didn't match as a cell or operator");
             break;
         }
@@ -194,7 +191,14 @@ function mathCalc(origString, output) {
         regMatchCellString(string);
     }
     
-    output.down().value = eval(operation.join(""));
+    setReadOnly(output);
+    outputValue = eval(operation.join(""));
+    if (isFinite(outputValue)) {
+        output.down().value = eval(operation.join(""));
+    }
+    else {
+        output.down().value = "0";
+    }
     return cells;
 }
 
