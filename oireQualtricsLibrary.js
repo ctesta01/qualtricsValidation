@@ -4,7 +4,7 @@
 function watchSet(set, mathFunction) {
     var setSize = set.length;
     for (var i=0; i < setSize; i++) {
-        set[i].down().observe("keyup", function(){mathFunction;});
+        set[i].down().observe("keyup", mathFunction);
     }
 }
 
@@ -12,7 +12,8 @@ function watchSet(set, mathFunction) {
 // TODO update to check if array or cell, and if array set all to
 // readonly.
 function setReadOnly(readOnlyCell) {
-    readOnlyCell.setAttribute("readonly", "readonly");
+    readOnlyCell.down().setAttribute("readonly", "readonly");
+    readOnlyCell.down().setAttribute("style", "background-color: gainsboro;");
 }
 
 // mathSum() takes a set, sums its components together, and then puts 
@@ -69,11 +70,11 @@ function mathEqual(array) {
 }
 
 function qualtricsEqual(array) {
-    watchSet(array, mathEqual(array));
+    watchSet(array, function(){mathEqual(array)});
 }
 
 function qualtricsSum(array, output) {
-    watchSet(array, mathSum.bind(null, array, output));
+    watchSet(array, function(){mathSum(array, output)});
     setReadOnly(output);
 }
 
@@ -170,9 +171,14 @@ function mathCalc(origString, output) {
     function regMatchCellString(str) {
         switch (true) {
           case cellMatch.test(str):
-                operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
-                cells.push(cell(cellMatch.exec(string)[0].trim()));
-                string = string.replace(cellMatch, "");
+              if (cell(cellMatch.exec(string)[0].trim()).down().value === "") {
+                  operation.push("0");
+              }
+              else {
+                  operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
+              }
+              cells.push(cell(cellMatch.exec(string)[0].trim()));
+              string = string.replace(cellMatch, "");
             break;
           case operatorMatch.test(str):
                 operation.push(operatorMatch.exec(string)[0]);
@@ -187,11 +193,12 @@ function mathCalc(origString, output) {
     while (string !== "") {
         regMatchCellString(string);
     }
-
+    
+    output.down().value = eval(operation.join(""));
     return cells;
 }
 
 function qualtricsMath(string, output) {
-    watchSet(mathCalc(string,output), mathCalc(string,output));
+    watchSet(mathCalc(string,output), function(){mathCalc(string,output)});
 }
 
