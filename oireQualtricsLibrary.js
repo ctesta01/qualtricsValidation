@@ -4,7 +4,7 @@
 function watchSet(set, mathFunction) {
     var setSize = set.length;
     for (var i=0; i < setSize; i++) {
-        set[i].down().observe("keyup", mathFunction );
+        set[i].down().observe("keyup", function(){mathFunction;});
     }
 }
 
@@ -17,15 +17,15 @@ function setReadOnly(readOnlyCell) {
 
 // mathSum() takes a set, sums its components together, and then puts 
 // them into an output cell
-function mathSum(set, output) {
-    var setTotal = 0;
-    for (var j=0; j < (set.length); j++) {
-        var setInputValue = parseInt(set[j].down().value, 10);
-        if (isNaN(setInputValue)) { setInputValue = 0; }
-        setTotal = setTotal + setInputValue;
+    function mathSum(set, output) {
+        var setTotal = 0;
+        for (var j=0; j < (set.length); j++) {
+            var setInputValue = parseInt(set[j].down().value, 10);
+            if (isNaN(setInputValue)) { setInputValue = 0; }
+            setTotal = setTotal + setInputValue;
+        }
+        output.down().value = setTotal;
     }
-    output.value = setTotal;
-}
 
 // validateError() takes an array, sets those cells to that color, and
 // hides the next button.
@@ -73,13 +73,18 @@ function qualtricsEqual(array) {
 }
 
 function qualtricsSum(array, output) {
-    watchSet(array, mathSum(array, output));
+    watchSet(array, mathSum.bind(null, array, output));
     setReadOnly(output);
 }
 
 function hideBox(cells) {
-    for (var i=0; i<cells.length; i++) {
-        cells[i].setAttribute("style", "visibility: hidden;");
+    if (isCell(cells)) {
+        cells.setAttribute("style", "visibility:hidden;");
+    }
+    if (isCellArray(cells)) {
+        for (var i=0; i<cells.length; i++) {
+            cells[i].setAttribute("style", "visibility: hidden;");
+        }
     }
 }
 
@@ -148,7 +153,7 @@ function cellRange(startCell, endCell) {
     return outputRange;
 }
 
-function qualtricsMath(origString, output) {
+function mathCalc(origString, output) {
     var string = origString;
     var cellMatch = /^[A-Za-z0-9\s]{2,4}/;
     var operatorMatch = /^[\+\-\/\*]/;
@@ -156,27 +161,37 @@ function qualtricsMath(origString, output) {
     var operation = [];
     var cells = [];
 
-    if (qid === undefined) {
-        qid = this.questionId;
-    }
-
+    // alert if the input arithmetic operation isn't valid input
     if (validStringMatch.exec(string) === null) {
         alert(string.concat(" is a non-valid arithmetic expression"));
     }
 
-    while (string !== "") {
-        if (cellMatch.exec(string) !== null) {
-            operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
-            cells.push(cell(cellMatch.exec(string)[0].trim()));
+    // new code
+    function regMatchCellString(str) {
+        switch (true) {
+          case cellMatch.test(str):
+                operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
+                cells.push(cell(cellMatch.exec(string)[0].trim()));
                 string = string.replace(cellMatch, "");
-        }
-        else if (operatorMatch.exec(string) !== null) {
-            operation.push(operatorMatch.exec(string)[0]);
-            string = string.replace(operatorMatch, "");
+            break;
+          case operatorMatch.test(str):
+                operation.push(operatorMatch.exec(string)[0]);
+                string = string.replace(operatorMatch, "");
+            break;
+          default:
+                console.log("String didn't match as a cell or operator");
+            break;
         }
     }
 
-    output.down().value = eval(operation.join(""));
+    while (string !== "") {
+        regMatchCellString(string);
+    }
 
-    watchSet(cells, qualtricsMath(origString, output));
+    return cells;
 }
+
+function qualtricsMath(string, output) {
+    watchSet(mathCalc(string,output), mathCalc(string,output));
+}
+
