@@ -130,9 +130,14 @@ function isCellArray(array) {
     return arrayStatus;
 }
 
-function cellRange(startCell, endCell) {
+function cellRange(startCell, endCell, qid) {
     var r1 = /^[A-Z]/;
     var r2 = /[0-9]{1,3}$/;
+
+    if (qid === undefined) {
+        qid = this.QuestionId;
+    }
+
 
     var startCellColumn = r1.exec(startCell)[0].charCodeAt(0) - 61;
     var endCellColumn = r1.exec(endCell)[0].charCodeAt(0) - 61;
@@ -149,7 +154,7 @@ function cellRange(startCell, endCell) {
 
     var outputRange = [];
     for (var orJKL=0; orJKL < tempRange.length; orJKL+=2) {
-        outputRange.push(cell(String.fromCharCode(tempRange[orJKL]+61).concat(tempRange[orJKL+1])));
+        outputRange.push(cell(String.fromCharCode(tempRange[orJKL]+61).concat(tempRange[orJKL+1]), qid));
     }
     return outputRange;
 }
