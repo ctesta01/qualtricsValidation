@@ -72,8 +72,12 @@ function mathEqual(array) {
     } else {validateSuccess(array); }
 }
 
-function qualtricsEqual(array) {
-    watchSet(array, function(){mathEqual(array)});
+function qualtricsEqual(array, watchCells) {
+    if (watchCells === undefined) {
+        watchCells = array;
+    }
+
+    watchSet(watchCells, function(){mathEqual(array)});
 }
 
 function qualtricsSum(array, output) {
