@@ -205,4 +205,3 @@ function mathCalc(origString, output) {
 function qualtricsMath(string, output) {
     watchSet(mathCalc(string,output), function(){mathCalc(string,output)});
 }
-
