@@ -1,6 +1,3 @@
-// watchSet() watches a set of cells you give it for changes, and 
-// calls another function when
-// it sees something change.
 function watchSet(set, mathFunction) {
     var setSize = set.length;
     for (var i=0; i < setSize; i++) {
@@ -8,55 +5,61 @@ function watchSet(set, mathFunction) {
     }
 }
 
-// toReadonly() sets a single cell to readonly.
-// TODO update to check if array or cell, and if array set all to
-// readonly.
-function setReadOnly(readOnlyCell) {
-    readOnlyCell.down().setAttribute("readonly", "readonly");
-    readOnlyCell.down().setAttribute("style", "background-color: gainsboro;");
+function setReadOnly(readOnlyCells) {
+    if (isCell(readOnlyCells)) {
+        readOnlyCell.down().setAttribute("readonly", "readonly");
+        readOnlyCell.down().setAttribute("style", "background-color: gainsboro;");
+    } 
+    if (isCellArray(readOnlyCells)) {
+        for (var i=0; i<readOnlyCells.length; i++) {
+            readOnlyCells[i].down().setAttribute("readonly", "readonly");
+            readOnlyCells[i].down().setAttribute("style", "background-color: gainsboro;");
+        }
+    }
 }
 
-// mathSum() takes a set, sums its components together, and then puts 
-// them into an output cell
-    function mathSum(set, output) {
-        var setTotal = 0;
-        for (var j=0; j < (set.length); j++) {
-            var setInputValue = parseInt(set[j].down().value, 10);
-            if (isNaN(setInputValue)) { setInputValue = 0; }
-            setTotal = setTotal + setInputValue;
-        }
-        output.down().value = setTotal;
+function mathSum(set, output) {
+    var setTotal = 0;
+    for (var j=0; j < (set.length); j++) {
+        var setInputValue = parseInt(set[j].down().value, 10);
+        if (isNaN(setInputValue)) { setInputValue = 0; }
+        setTotal = setTotal + setInputValue;
     }
+    output.down().value = setTotal;
+}
 
-// validateError() takes an array, sets those cells to that color, and
-// hides the next button.
-function validateError(array, color) {
+function validateError(cells, color) {
     if (color === undefined) {
         color = "pink";
     }
     color = color.concat(";");
-    for (var k=0; k < array.length; k++) {
-        array[k].down().setAttribute("style", "background-color: ".concat(color));
+    if (isCellArray(cells)) {
+        for (var k=0; k < cells.length; k++) {
+            cells[k].down().setAttribute("style", "background-color: ".concat(color));
+        }
+    }
+    else if (isCell(cells)) {
+        cells.down().setAttribute("style", "background-color: ".concat(color));
     }
     $('NextButton') && $('NextButton').hide();
 }
 
-// validateSuccess() takes an array, sets background color, and 
-// shows the next button.
-function validateSuccess(array, color) {
+function validateSuccess(cells, color) {
     if (color === undefined) {
         color = "white";
     }
     color = color.concat(";");
-    for (var k=0; k < array.length; k++) {
-        array[k].down().setAttribute("style", "background-color: ".concat(color));
+    if (isCellArray(cells)) {
+        for (var k=0; k < cells.length; k++) {
+            cells[k].down().setAttribute("style", "background-color: ".concat(color));
+        }
+    }
+    else if (isCell(cells)) {
+        cells.down().setAttribute("style", "background-color: ".concat(color));
     }
     $('NextButton') && $('NextButton').show();
 }
 
-// mathEqual() takes an array, checks if any two elements of the 
-// array differ pairwise, and calls validateError() and validateSuccess() 
-// accordingly on the array its given. 
 function mathEqual(array) {
     var validateStatus = 0;
     for (var l=1; l < array.length; l++) {
@@ -89,7 +92,7 @@ function hideBox(cells) {
     }
 }
 
-function cell(string) {
+function cell(string, qid) {
     var r1 = /^[A-Z]/;
     var r2 = /\d{1,3}/;
     var column = r1.exec(string);
@@ -205,3 +208,27 @@ function mathCalc(origString, output) {
 function qualtricsMath(string, output) {
     watchSet(mathCalc(string,output), function(){mathCalc(string,output)});
 }
+
+function setDefaultValue(cells, values) {
+    if (isCell(cells)) {
+        if (values.constructor == Array) {
+            console.log("setDefaultValue: single cell and multiple values passed to setDefaultValue");
+        }
+        else {
+            cells.down().value = values;
+        }
+    }
+    else if (isCellArray(cells)) {
+        if (values.constructor == Array) {
+            if (values.length == cells.length) {
+                for (var i=0; i<cells.length; i++) {
+                    cells[i].down().value = values[i];
+                }
+            }
+            else {console.log("setDefaultValue: cells length and values length are not the same");}
+        }
+        else {console.log("setDefaultValue: cells is array, but values is not.");}
+    }
+}
+
+
