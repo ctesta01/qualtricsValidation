@@ -7,8 +7,8 @@ function watchSet(set, mathFunction) {
 
 function setReadOnly(readOnlyCells) {
     if (isCell(readOnlyCells)) {
-        readOnlyCell.down().setAttribute("readonly", "readonly");
-        readOnlyCell.down().setAttribute("style", "background-color: gainsboro;");
+        readOnlyCells.down().setAttribute("readonly", "readonly");
+        readOnlyCells.down().setAttribute("style", "background-color: gainsboro;");
     } 
     if (isCellArray(readOnlyCells)) {
         for (var i=0; i<readOnlyCells.length; i++) {
@@ -98,7 +98,8 @@ function cell(string, qid) {
     var column = r1.exec(string);
     var row = r2.exec(string.replace(r1, ""));
     if (qid === undefined) {
-        qid = this.QuestionId;
+        //qid = this.QuestionId;
+        qid = "QID1";
     }
     if (column === null) {
         alert(string.concat(": Cell misformatted. Column is not single uppercase letter"));
@@ -159,13 +160,17 @@ function cellRange(startCell, endCell, qid) {
     return outputRange;
 }
 
-function mathCalc(origString, output) {
+function mathCalc(origString, output, qid) {
     var string = origString;
     var cellMatch = /^[A-Za-z0-9\s]{2,4}/;
     var operatorMatch = /^[\+\-\/\*()\s]/;
     var validStringMatch = /[A-Za-z0-9\+\-\/\*\s]{2,50}/g;
     var operation = [];
     var cells = [];
+
+    if (qid === undefined) {
+        qid = this.QuestionId;
+    }
 
     // alert if the input arithmetic operation isn't valid input
     if (validStringMatch.test(string) == false) {
@@ -175,13 +180,13 @@ function mathCalc(origString, output) {
     function regMatchCellString(str) {
         switch (true) {
           case cellMatch.test(str):
-              if (cell(cellMatch.exec(string)[0].trim()).down().value === "") {
+              if (cell(cellMatch.exec(string)[0].trim(), qid).down().value === "") {
                   operation.push("0");
               }
               else {
-                  operation.push(cell(cellMatch.exec(string)[0].trim()).down().value);
+                  operation.push(cell(cellMatch.exec(string)[0].trim(), qid).down().value);
               }
-              cells.push(cell(cellMatch.exec(string)[0].trim()));
+              cells.push(cell(cellMatch.exec(string)[0].trim(), qid));
               string = string.replace(cellMatch, "");
             break;
           case operatorMatch.test(str):
