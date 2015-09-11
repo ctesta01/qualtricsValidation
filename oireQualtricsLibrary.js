@@ -216,9 +216,9 @@ function mathCalc(origString, output, qid) {
     return [outputValue, cells];
 }
 
-function qualtricsMath(string, output) {
-    watchSet(mathCalc(string,output)[1], function(){
-        output.down().value = mathCalc(string,output)[0];
+function qualtricsMath(string, output, qid) {
+    watchSet(mathCalc(string,output,qid)[1], function(){
+        output.down().value = mathCalc(string,output,qid)[0];
     });
 }
 
@@ -244,8 +244,8 @@ function setDefaultValue(cells, values) {
     }
 }
 
-function qualtricsPercentage(equation, output) {
-    watchSet(mathCalc(equation, output)[1], function(){
-        output.down().value = (mathCalc(equation,output)[0]*100).toString().concat("%");
+function qualtricsPercentage(equation, output, qid) {
+    watchSet(mathCalc(equation, output,qid)[1], function(){
+        output.down().value = (mathCalc(equation,output,qid)[0]*100).toString().concat("%");
     }
 }
