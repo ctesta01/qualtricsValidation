@@ -210,17 +210,16 @@ function mathCalc(origString, output, qid) {
     
     setReadOnly(output);
     outputValue = eval(operation.join(""));
-    if (isFinite(outputValue)) {
-        output.down().value = eval(operation.join(""));
+    if (isFinite(outputValue) == false) {
+        outputValue = 0;
     }
-    else {
-        output.down().value = "0";
-    }
-    return cells;
+    return [outputValue, cells];
 }
 
 function qualtricsMath(string, output) {
-    watchSet(mathCalc(string,output), function(){mathCalc(string,output)});
+    watchSet(mathCalc(string,output)[1], function(){
+        output.down().value = mathCalc(string,output)[0];
+    });
 }
 
 function setDefaultValue(cells, values) {
@@ -245,4 +244,8 @@ function setDefaultValue(cells, values) {
     }
 }
 
-
+function qualtricsPercentage(equation, output) {
+    watchSet(mathCalc(equation, output)[1], function(){
+        output.down().value = (mathCalc(equation,output)[0]*100).toString().concat("%");
+    }
+}
