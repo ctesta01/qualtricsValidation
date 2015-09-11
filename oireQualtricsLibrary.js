@@ -77,11 +77,15 @@ function qualtricsEqual(array, watchCells) {
         watchCells = array;
     }
 
-    watchSet(watchCells, function(){mathEqual(array)});
+    watchSet(watchCells, function(){
+        mathEqual(array);
+    });
 }
 
 function qualtricsSum(array, output) {
-    watchSet(array, function(){mathSum(array, output)});
+    watchSet(array, function(){
+        mathSum(array, output);
+    });
     setReadOnly(output);
 }
 
@@ -128,7 +132,7 @@ function isCellArray(array) {
         arrayStatus = false;
     }
     for (var i=0; i<array.length; i++) {
-        if (re.test(array[i].outerHTML) == false) {
+        if (re.test(array[i].outerHTML) === false) {
             arrayStatus = false;
         }
     }
@@ -177,7 +181,7 @@ function mathCalc(origString, output, qid) {
     }
 
     // alert if the input arithmetic operation isn't valid input
-    if (validStringMatch.test(string) == false) {
+    if (validStringMatch.test(string) === false) {
         alert(string.concat(" is a non-valid arithmetic expression"));
     }
 
@@ -210,7 +214,7 @@ function mathCalc(origString, output, qid) {
     
     setReadOnly(output);
     outputValue = eval(operation.join(""));
-    if (isFinite(outputValue) == false) {
+    if (isFinite(outputValue) === false) {
         outputValue = 0;
     }
     return [outputValue, cells];
@@ -247,5 +251,5 @@ function setDefaultValue(cells, values) {
 function qualtricsPercentage(equation, output, qid) {
     watchSet(mathCalc(equation, output,qid)[1], function(){
         output.down().value = (mathCalc(equation,output,qid)[0]*100).toString().concat("%");
-    }
+    });
 }
