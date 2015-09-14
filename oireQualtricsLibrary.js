@@ -253,3 +253,16 @@ function qualtricsPercentage(equation, output, qid) {
         output.down().value = (mathCalc(equation,output,qid)[0]*100).toString().concat("%");
     });
 }
+
+function setCellWidth(cells, width, qid) {
+    width = width.concat("px");
+    if (isCell(cells)) {
+        cells.down().style.width = width;
+    }
+    if (isCellArray(cells)) {
+        for (var i=0; i<cells.length; i++) {
+            cells[i].down().style.width = width;
+        }
+    }
+}
+
