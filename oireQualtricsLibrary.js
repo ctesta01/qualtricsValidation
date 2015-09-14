@@ -250,7 +250,7 @@ function setDefaultValue(cells, values) {
 
 function qualtricsPercentage(equation, output, qid) {
     watchSet(mathCalc(equation, output,qid)[1], function(){
-        output.down().value = (mathCalc(equation,output,qid)[0]*100).toString().concat("%");
+        output.down().value = ((mathCalc(equation,output,qid)[0]*100).toFixed(1)).toString().concat("%");
     });
 }
 
@@ -265,4 +265,6 @@ function setCellWidth(cells, width, qid) {
         }
     }
 }
+
+
 
