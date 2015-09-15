@@ -91,11 +91,11 @@ function qualtricsSum(array, output) {
 
 function hideBox(cells) {
     if (isCell(cells)) {
-        cells.setAttribute("style", "visibility:hidden;");
+        cells.down().setAttribute("style", "visibility:hidden;");
     }
     if (isCellArray(cells)) {
         for (var i=0; i<cells.length; i++) {
-            cells[i].setAttribute("style", "visibility: hidden;");
+            cells[i].down().setAttribute("style", "visibility: hidden;");
         }
     }
 }
