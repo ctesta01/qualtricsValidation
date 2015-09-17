@@ -72,6 +72,23 @@ function mathEqual(array) {
     } else {validateSuccess(array); }
 }
 
+function mathLessThan(lessCell, greatCell) {
+    if (lessCell.down().value >= greatCell.down().value) {
+        validateError(lessCell);
+        return false;
+    }
+    else {
+        validateSuccess(lessCell);
+        return true;
+    }
+}
+
+function qualtricsLess(lessCell, greatCell) {
+    watchSet([lessCell, greatCell], function(){
+        mathLessThan(lessCell, greatCell);
+    });
+}
+
 function qualtricsEqual(array, watchCells) {
     if (watchCells === undefined) {
         watchCells = array;
