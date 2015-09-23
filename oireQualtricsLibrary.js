@@ -73,7 +73,7 @@ function mathEqual(array) {
 }
 
 function mathLessThan(lessCell, greatCell) {
-    if (lessCell.down().value >= greatCell.down().value) {
+    if (parseInt(lessCell.down().value) >= parseInt(greatCell.down().value)) {
         validateError(lessCell);
         return false;
     }
