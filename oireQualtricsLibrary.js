@@ -237,8 +237,11 @@ function mathCalc(origString, output, qid) {
     return [outputValue, cells];
 }
 
-function qualtricsMath(string, output, qid) {
-    watchSet(mathCalc(string,output,qid)[1], function(){
+function qualtricsMath(string, output, qid, watchCells) {
+    if (watchCells === undefined) {
+        watchCells = mathCalc(string,output,qid)[1];
+    }
+    watchSet(watchCells, function(){
         output.down().value = mathCalc(string,output,qid)[0];
     });
 }
@@ -265,8 +268,12 @@ function setDefaultValue(cells, values) {
     }
 }
 
-function qualtricsPercentage(equation, output, qid) {
-    watchSet(mathCalc(equation, output,qid)[1], function(){
+function qualtricsPercentage(equation, output, qid, watchCells) {
+    if (watchCells === undefined) {
+        watchCells = mathCalc(equation, output, qid)[1];
+    }
+
+    watchSet(watchCells, function(){
         output.down().value = ((mathCalc(equation,output,qid)[0]*100).toFixed(1)).toString().concat("%");
     });
 }
