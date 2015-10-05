@@ -74,11 +74,11 @@ function mathEqual(array) {
 
 function mathLessThan(lessCell, greatCell) {
     if (parseInt(lessCell.down().value) >= parseInt(greatCell.down().value)) {
-        validateError(lessCell);
+        validateError([greatCell, lessCell]);
         return false;
     }
     else {
-        validateSuccess(lessCell);
+        validateSuccess([greatCell, lessCell]);
         return true;
     }
 }
