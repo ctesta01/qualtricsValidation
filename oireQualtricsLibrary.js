@@ -1,15 +1,22 @@
 function watchSet(set, mathFunction) {
     var setSize = set.length;
+    
+    // for each cell in the set, run mathFunction whenever a "keyup" is observed
     for (var i=0; i < setSize; i++) {
         set[i].down().observe("keyup", mathFunction);
     }
 }
 
 function setReadOnly(readOnlyCells) {
+    // set cell readonly: readonly and background to gainsboro, a nice color of gray
+    
+    // if single cell
     if (isCell(readOnlyCells)) {
         readOnlyCells.down().setAttribute("readonly", "readonly");
         readOnlyCells.down().setAttribute("style", "background-color: gainsboro;");
     } 
+    
+    // if array of cells
     if (isCellArray(readOnlyCells)) {
         for (var i=0; i<readOnlyCells.length; i++) {
             readOnlyCells[i].down().setAttribute("readonly", "readonly");
@@ -19,64 +26,97 @@ function setReadOnly(readOnlyCells) {
 }
 
 function mathSum(set, output) {
+    // instantiating setTotal, where we'll total the cells passed in
     var setTotal = 0;
+    
+    // loop through the cells, adding each cell's value to setTotal
+    // if a cell has no value, add zero to the setTotal and move on.
     for (var j=0; j < (set.length); j++) {
         var setInputValue = parseInt(set[j].down().value, 10);
         if (isNaN(setInputValue)) { setInputValue = 0; }
         setTotal = setTotal + setInputValue;
     }
+    
+    // set the value of the output cell to setTotal
     output.down().value = setTotal;
 }
 
 function validateError(cells, color) {
+    // default color for invalid cells will be pink
     if (color === undefined) {
         color = "pink";
     }
+    
+    // this is just some formatting, so that the css gets set as 'background-color: color;'
     color = color.concat(";");
+    
+    // for an array of cells, set each cell's background pink
     if (isCellArray(cells)) {
         for (var k=0; k < cells.length; k++) {
             cells[k].down().setAttribute("style", "background-color: ".concat(color));
         }
     }
+    
+    // for a single cell, set that cell's background to pink
     else if (isCell(cells)) {
         cells.down().setAttribute("style", "background-color: ".concat(color));
     }
+    
+    // hide the next button
     $('NextButton') && $('NextButton').hide();
 }
 
 function validateSuccess(cells, color) {
+    // default color for valid cells is white
     if (color === undefined) {
         color = "white";
     }
+    
+    // this is just some formatting, so that the css gets set as 'background-color: color;'
     color = color.concat(";");
+    
+    // for an array of cells, set each cell's background white
     if (isCellArray(cells)) {
         for (var k=0; k < cells.length; k++) {
             cells[k].down().setAttribute("style", "background-color: ".concat(color));
         }
     }
+    
+    // for a single cell, set the cell's background to white
     else if (isCell(cells)) {
         cells.down().setAttribute("style", "background-color: ".concat(color));
     }
+    
+    // hide the next button
     $('NextButton') && $('NextButton').show();
 }
 
 function mathEqual(array) {
+    // set default validateStatus as 0, we'll use validateStatus to run either validateSuccess or validateError
     var validateStatus = 0;
+    
+    // loop through the array of cells passed in, and if any two are unequal, set the validateStatus to 1
     for (var l=1; l < array.length; l++) {
         if (array[l].down().value != array[l-1].down().value) {
             validateStatus = 1;
         }
     }
+    
+    // if validateStatus was set to 1 in the previous step, run validateError on the array,
+    // otherwise run validateSuccess on the array
     if (validateStatus == 1) {
         validateError(array);
     } else {validateSuccess(array); }
 }
 
 function mathLessThan(lessCell, greatCell) {
-    if (parseInt(lessCell.down().value) >= parseInt(greatCell.down().value)) {
+    // if the integer value of the lessCell is greater or equal to the value of the greater cell, 
+    if (parseInt(lessCell.down().value) > parseInt(greatCell.down().value)) {
         validateError([greatCell, lessCell]);
         return false;
     }
+    
+    // if the integer value of the lessCell is in fact less than or equal to the greater cell, validateSuccess!
     else {
         validateSuccess([greatCell, lessCell]);
         return true;
@@ -84,12 +124,15 @@ function mathLessThan(lessCell, greatCell) {
 }
 
 function qualtricsLess(lessCell, greatCell) {
+    // pass lessCell and greatCell as the array of cells to be watched, and pass mathLessThan(lessCell, greatCell)
+    // to be called whenever the lessCell and greatCell are updated
     watchSet([lessCell, greatCell], function(){
         mathLessThan(lessCell, greatCell);
     });
 }
 
 function qualtricsEqual(array, watchCells) {
+    // 
     if (watchCells === undefined) {
         watchCells = array;
     }
