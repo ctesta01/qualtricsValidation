@@ -26,6 +26,6 @@ A table with some read only headers, subtotals, and totals validating against pr
 
 ### Characteristics of Entering Class:
 Subgroups of total entering students, totaling to previously entered values for enrollees, with automatically calculated percentages.
-![](http://giant.gfycat.com/BrokenElasticBichonfrise.gif)
+![](http://fat.gfycat.com/BrokenElasticBichonfrise.gif)
 
 
