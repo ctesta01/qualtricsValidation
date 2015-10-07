@@ -15,17 +15,17 @@ Go to your Qualtrics survey -> Question -> Advanced Question Options (Gear under
 Insert here any commands you want to run specific to that question.
 
 
-## Testing with Developer Console Examples:
-### Hiding a cell
-![](http://giant.gfycat.com/DeepGranularFrenchbulldog.gif)
-`hideBox([$("QID1").select('td.c4')[0]]);`
+## Demonstrations:
+### Admissions Raw Data:
+Using `qualtricsMath()` and `qualtricsPercentage()` to immediately calculate percentages, as well as validation that #(Enrollments) < #(Acceptances) < #(Applicants).
+![](http://giant.gfycat.com/MedicalSlushyDogwoodclubgall.gif)
 
-### Summing a Column
-![](http://giant.gfycat.com/PastKaleidoscopicLamprey.gif)
-`sumMatrix($("QID1").select('td.c5').slice(0,-1), $("QID1").select('td.c5').last().down());`
+### Applicants/Acceptances/Enrollments by Race/Ethnicity and Gender:
+A table with some read only headers, subtotals, and totals validating against previously entered data.
+![](http://giant.gfycat.com/BelatedThatAztecant.gif)
 
-### Summing Specific Cells
-![](http://giant.gfycat.com/UnimportantCourageousAngora.gif)
-`sumMatrix([$("QID1").select('td.c6')[0], $("QID1").select('td.c6')[1], 
-               $("QID1").select('td.c6')[2]], $("QID1").select('td.c6')[3].down());`
+### Characteristics of Entering Class:
+Subgroups of total entering students, totaling to previously entered values for enrollees, with automatically calculated percentages.
+![](http://giant.gfycat.com/BrokenElasticBichonfrise.gif)
+
 
