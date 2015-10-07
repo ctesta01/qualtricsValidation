@@ -17,11 +17,11 @@ Insert here any commands you want to run specific to that question.
 
 ## Demonstrations:
 ### Admissions Raw Data:
-Using `qualtricsMath()` and `qualtricsPercentage()` to immediately calculate percentages, as well as validation that #(Enrollments) < #(Acceptances) < #(Applicants).
+Using `qualtricsMath()` and `qualtricsPercentage()` to immediately calculate percentages and relative size validation.
 ![](http://giant.gfycat.com/MedicalSlushyDogwoodclubgall.gif)
 
 ### Applicants/Acceptances/Enrollments by Race/Ethnicity and Gender:
-A table with some read only headers, subtotals, and totals validating against previously entered data.
+A table with read-only cell headers, subtotals, and totals validating against previously entered data.
 ![](http://giant.gfycat.com/BelatedThatAztecant.gif)
 
 ### Characteristics of Entering Class:
