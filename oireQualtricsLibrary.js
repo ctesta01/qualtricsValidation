@@ -366,31 +366,43 @@ function qualtricsMath(string, output, qid, watchCells) {
 
 function setDefaultValue(cells, values) {
     if (isCell(cells)) {
+        // if cells is a single cell, and if values is an array, error
         if (values.constructor == Array) {
             console.log("setDefaultValue: single cell and multiple values passed to setDefaultValue");
         }
+        // if cells and values are both a single value,
+        // set the single cell, cells, value to values
         else {
             cells.down().value = values;
         }
     }
     else if (isCellArray(cells)) {
+        // if cells is an array, and values is an array
         if (values.constructor == Array) {
+            // check that they have the same length
             if (values.length == cells.length) {
+                // set the value of each cell to the corresponding value
                 for (var i=0; i<cells.length; i++) {
                     cells[i].down().value = values[i];
                 }
             }
+            // length doesn't match error
             else {console.log("setDefaultValue: cells length and values length are not the same");}
         }
+        // if cells are of type array, but values isn't, error
         else {console.log("setDefaultValue: cells is array, but values is not.");}
     }
 }
 
 function qualtricsPercentage(equation, output, qid, watchCells) {
+    // default watchCells to the cells used in equation
     if (watchCells === undefined) {
         watchCells = mathCalc(equation, output, qid)[1];
     }
 
+    // run the following nameless function whenever watchCells are updated
+    // the nameless function here runs the mathCalc function on the given equation, 
+    // multiplies the output by 100, and appends '%' to it, as to produce a percentage-format
     watchSet(watchCells, function(){
         output.down().value = ((mathCalc(equation,output,qid)[0]*100).toFixed(1)).toString().concat("%");
     });
