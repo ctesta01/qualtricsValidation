@@ -173,9 +173,7 @@ function cell(string, qid) {
     
     // currently defaulting to QID1, should default to this.Question if possible...
     if (qid === undefined) {
-        // TODO fix default QuestionId
-        //qid = this.QuestionId;
-        qid = "QID1";
+        qid = this.questionId;
     }
     
     // error on invalid column
@@ -230,9 +228,9 @@ function cellRange(startCell, endCell, qid) {
     var r1 = /^[A-Z]/;
     var r2 = /[0-9]{1,3}$/;
 
-    // default question ID should be this.QuestionId
+    // default question ID should be this.questionId
     if (qid === undefined) {
-        qid = this.QuestionId;
+        qid = this.questionId;
     }
 
 
@@ -278,9 +276,9 @@ function mathCalc(origString, output, qid) {
     // cells is a stack we will push cells that are relevant to the operation onto
     var cells = [];
 
-    // default qid is this.QuestionId
+    // default qid is this.questionId
     if (qid === undefined) {
-        qid = this.QuestionId;
+        qid = this.questionId;
     }
 
     // alert if the input arithmetic operation isn't valid input
