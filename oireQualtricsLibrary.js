@@ -72,25 +72,35 @@ function validateSuccess(cells, color) {
         color = "white";
     }
     
+    
     // this is just some formatting, so that the css gets set as 'background-color: color;'
     color = color.concat(";");
     
-    // for an array of cells, set each cell's background white
+    // for an array of cells, set each cell's background to color
     if (isCellArray(cells)) {
         for (var k=0; k < cells.length; k++) {
-            cells[k].down().setAttribute("style", "background-color: ".concat(color));
+            // if the cell is readonly, use gray (gainsboro)
+            if (cells[k].down().readOnly) {
+                cells[k].down().setAttribute("style", "background-color: gainsboro;");
+            }
+            else {
+                cells[k].down().setAttribute("style", "background-color: ".concat(color));
+            }
         }
     }
     
-    // for a single cell, set the cell's background to white
+    // for a single cell, set the cell's background to color
     else if (isCell(cells)) {
+        // if the cell is readonly, use gray (gainsboro)
+        if (cells.down().readOnly) {
+            color = "gainsboro;";
+        }
         cells.down().setAttribute("style", "background-color: ".concat(color));
     }
     
-    // hide the next button
+    // unhide the next button
     $('NextButton') && $('NextButton').show();
 }
-
 function mathEqual(array) {
     // set default validateStatus as 0, we'll use validateStatus to run either validateSuccess or validateError
     var validateStatus = 0;
